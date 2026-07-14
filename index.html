@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LibertyRP — Подключение к серверу</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a1424'/%3E%3Ctext x='50' y='74' font-size='64' text-anchor='middle'%3E%F0%9F%97%BD%3C/text%3E%3C/svg%3E">
 <style>
@@ -30,7 +35,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
+html,body{margin:0;padding:0;width:100%;height:100%;background:#060b16}
 body{
   background:var(--bg-0);
   color:var(--text);
@@ -41,22 +46,22 @@ body{
 }
 
 /* ============ STAGE / LAYERS ============ */
-#stage{position:fixed;inset:0;overflow:hidden;background:var(--bg-0)}
-#bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#stage{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:hidden;background:var(--bg-0)}
+#bg{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block}
 
-.bg-images{position:absolute;inset:0;pointer-events:none}
-.bg-images .frame{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease}
+.bg-images{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}
+.bg-images .frame{position:absolute;top:0;right:0;bottom:0;left:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease}
 .bg-images .frame.on{opacity:1}
 
-.overlay-vignette{position:absolute;inset:0;pointer-events:none;
+.overlay-vignette{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;
   background:
     radial-gradient(120% 90% at 50% 12%, transparent 40%, rgba(3,7,15,.55) 100%),
     radial-gradient(120% 120% at 50% 120%, rgba(4,9,20,.85) 0%, transparent 55%);
 }
-.overlay-grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+.overlay-grain{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
-.scanlines{position:absolute;inset:0;pointer-events:none;opacity:.28;mix-blend-mode:soft-light;
+.scanlines{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;opacity:.28;mix-blend-mode:soft-light;
   background:repeating-linear-gradient(to bottom, rgba(150,190,255,.08) 0 1px, transparent 1px 3px);
 }
 
@@ -67,7 +72,7 @@ body{
   box-shadow:0 0 12px rgba(103,232,255,.7);transition:width .5s cubic-bezier(.4,.1,.2,1)}
 
 /* ============ HUD ============ */
-.hud{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+.hud{position:absolute;top:0;right:0;bottom:0;left:0;z-index:5;display:flex;flex-direction:column;
   padding:clamp(18px,3vw,40px);gap:16px}
 
 .hud-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
@@ -131,7 +136,7 @@ body{
 .progress-fill{position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:999px;
   background:linear-gradient(90deg,var(--accent-deep),var(--accent) 55%,var(--accent-2));
   box-shadow:0 0 16px rgba(103,232,255,.6);transition:width .55s cubic-bezier(.35,.1,.2,1)}
-.progress-fill::after{content:"";position:absolute;inset:0;border-radius:999px;
+.progress-fill::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;border-radius:999px;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
   background-size:180px 100%;animation:sheen 1.8s linear infinite}
 
@@ -208,7 +213,7 @@ body{
 .pbtn.play:hover{filter:brightness(1.1)}
 
 /* first-interaction gate */
-.gate{position:absolute;inset:0;z-index:20;display:grid;place-items:center;cursor:pointer;
+.gate{position:absolute;top:0;right:0;bottom:0;left:0;z-index:20;display:grid;place-items:center;cursor:pointer;
   background:radial-gradient(circle at 50% 45%,rgba(8,15,30,.55),rgba(4,8,18,.86));
   backdrop-filter:blur(3px);transition:opacity .6s ease}
 .gate.hide{opacity:0;pointer-events:none}
@@ -241,6 +246,8 @@ body{
 }
 </style>
 
+</head>
+<body>
 <div id="stage">
   <canvas id="bg"></canvas>
   <div class="bg-images" id="bgImages"></div>
@@ -292,7 +299,7 @@ body{
         </div>
         <div class="info-grid">
           <div class="info-item"><span class="k">Адрес</span><span class="v" id="iAddr">play.libertyrp.ru:27015</span></div>
-          <div class="info-item"><span class="k">Карта</span><span class="v" id="iMap">rp_liberty_city</span></div>
+          <div class="info-item"><span class="k">Карта</span><span class="v" id="iMap">rp_bangclaw</span></div>
           <div class="info-item"><span class="k">Игроки</span><span class="v"><span id="iPlayers">—</span><span class="u" id="iMax"></span></span></div>
           <div class="info-item"><span class="k">Режим</span><span class="v" id="iGamemode">DarkRP</span></div>
           <div class="info-item"><span class="k">Пинг</span><span class="v"><span id="iPing">24</span> <span class="u">ms</span></span></div>
@@ -324,7 +331,7 @@ body{
     </div>
   </main>
 
-  <div class="gate" id="gate">
+  <div class="gate hide" id="gate">
     <div class="inner">
       <div class="ring">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -353,18 +360,19 @@ const CONFIG = {
     name:"LIBERTY RP",
     tagline:"Русский DarkRP · Ролевая игра",
     address:"play.libertyrp.ru:27015",
-    map:"rp_liberty_city",
+    map:"rp_bangclaw",
     gamemode:"DarkRP",
     maxplayers:128,
     players:0,          // подтянется из GameDetails / демо
     ping:24,
     discord:"discord.gg/libertyrp"
   },
-  // Пример: {title:"Neon Nights", artist:"Liberty FM", src:"https://.../track1.mp3"}
+  // Треки играют в случайном порядке с авто-сменой по кругу. Файлы — в папке music/.
   tracks:[
-    // добавьте сюда реальные ссылки на музыку:
-    // {title:"Midnight Drive", artist:"Liberty FM", src:"music/track1.mp3"},
-    // {title:"City of Freedom", artist:"Liberty FM", src:"music/track2.mp3"},
+    {title:"Clint Eastwood",   artist:"Gorillaz",      src:"music/track1.mp3"},
+    {title:"Hit the Road Jack", artist:"Ray Charles",   src:"music/track2.mp3"},
+    {title:"Everybody Knows",   artist:"Leonard Cohen", src:"music/track3.mp3"},
+    {title:"Smooth Operator",   artist:"Sade",          src:"music/track4.mp3"},
   ],
   // Пример: ["backgrounds/city1.jpg","backgrounds/city2.jpg", ...]
   backgrounds:[],
@@ -658,7 +666,7 @@ const audioPlayer = (()=>{
       : '<path d="M8 5v14l11-7z"/>';
   }
   function init(){
-    if(ready){ load(0); }
+    if(ready){ load(Math.floor(Math.random()*CONFIG.tracks.length)); } // случайный трек при заходе
     else{
       $('nowLabel').textContent='Радио';
       $('trackTitle').textContent='LIBERTY FM';
@@ -667,7 +675,7 @@ const audioPlayer = (()=>{
     reflect();
   }
   return {init,play,pause,toggle,next,prev,setMuted,get muted(){return audio.muted},
-          get hasTracks(){return ready}};
+          get isPlaying(){return isPlaying}, get hasTracks(){return ready}};
 })();
 
 /* =========================================================================
@@ -754,7 +762,7 @@ const loader = (()=>{
   // На живом сервере GMod присылает РЕАЛЬНЫЕ имена файлов через DownloadingFile().
   // Ниже — реальные пути контента этого сервера (для достоверного демо вне игры).
   const demoFiles=[
-    "maps/rp_liberty_city.bsp",
+    "maps/rp_bangclaw.bsp",
     "models/freeman/owain_roulette_table.mdl",
     "materials/models/freeman/owain_slotmachine_reel.vmt",
     "sound/pcasino/wheelslotmachine/jackpot_tune.wav",
@@ -782,7 +790,7 @@ const loader = (()=>{
     let step=0;
     const seq=[
       {p:'connect',pct:6,dur:1200,file:'Установка соединения с play.libertyrp.ru…'},
-      {p:'map',pct:22,dur:2600,file:'maps/rp_liberty_city.bsp'},
+      {p:'map',pct:22,dur:2600,file:'maps/rp_bangclaw.bsp'},
       {p:'workshop',pct:34,dur:2200,file:'Проверка подписок Steam Workshop…'},
     ];
     function phaseStep(){
@@ -856,7 +864,11 @@ const loader = (()=>{
   $('playBtn').onclick=()=>audioPlayer.toggle();
   $('nextBtn').onclick=()=>audioPlayer.next();
   $('prevBtn').onclick=()=>audioPlayer.prev();
-  $('soundToggle').onclick=()=>{ audioPlayer.setMuted(!audioPlayer.muted); };
+  $('soundToggle').onclick=()=>{
+    if(!audioPlayer.hasTracks) return;
+    if(!audioPlayer.isPlaying){ audioPlayer.setMuted(false); audioPlayer.play(); }
+    else { audioPlayer.setMuted(!audioPlayer.muted); }
+  };
 
   audioPlayer.init();
 
@@ -866,27 +878,20 @@ const loader = (()=>{
 
   loader.start();
 
-  // Плашка «Нажмите, чтобы войти» нужна только если есть музыка (политика автозапуска).
-  const gate=$('gate');
-  function enter(){
-    gate.classList.add('hide');
+  // Экран не перекрываем: автозвук пробуем сразу, при блокировке — старт по
+  // первому действию/клику. В GMod CEF автозапуск обычно разрешён.
+  const gate=$('gate'); gate.classList.add('hide');
+  function startAudio(){
+    if(!audioPlayer.hasTracks) return;
     audioPlayer.setMuted(false);
     audioPlayer.play();
-    window.removeEventListener('keydown',enter);
   }
-  if(audioPlayer.hasTracks){
-    gate.addEventListener('click',enter);
-    window.addEventListener('keydown',enter);
-    // попытка тихого автозапуска (в GMod CEF часто разрешён)
-    window.addEventListener('load',()=>{
-      audioPlayer.setMuted(false);
-      audioPlayer.play();
-      // если браузер заблокировал — плашка останется, ждём клик
-      setTimeout(()=>{ if(document.body.classList.contains('playing')) gate.classList.add('hide'); }, 600);
-    });
-  } else {
-    // треки не настроены — разблокировать нечего, убираем плашку
-    gate.classList.add('hide');
-  }
+  startAudio();
+  window.addEventListener('load', startAudio);
+  window.addEventListener('pointerdown', startAudio, {once:true});
+  window.addEventListener('keydown', startAudio, {once:true});
 })();
 </script>
+
+</body>
+</html>
