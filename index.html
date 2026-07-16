@@ -75,7 +75,7 @@ body{
 .hud{position:absolute;top:0;right:0;bottom:0;left:0;z-index:5;display:flex;flex-direction:column;
   padding:clamp(18px,3vw,40px);gap:16px}
 
-.hud-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.hud-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 
 .scene-tag{display:flex;align-items:center;gap:10px;
   font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
@@ -101,6 +101,9 @@ body{
 .sound-toggle .eq i:nth-child(2){animation-delay:-.5s}
 .sound-toggle .eq i:nth-child(3){animation-delay:-.1s}
 .sound-toggle .eq i:nth-child(4){animation-delay:-.7s}
+
+/* audio cluster (top-right): mute pill + radio card, lifted out of the bottom GMod download-bar zone */
+.top-audio{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:0}
 
 /* ---- center ---- */
 .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -236,6 +239,7 @@ body{
 
 @media (max-width:720px){
   .hud-bottom{flex-direction:column;align-items:stretch}
+  .top-audio{align-items:stretch;flex:1 1 100%}
   .player{min-width:0}
   .server-info{min-width:0}
 }
@@ -263,9 +267,33 @@ body{
         <span class="dot"></span>
         <span>СЦЕНА · <b id="sceneName">—</b></span>
       </div>
-      <div class="sound-toggle muted" id="soundToggle" title="Звук вкл/выкл">
-        <span class="eq"><i></i><i></i><i></i><i></i></span>
-        <span id="soundLabel">Звук выкл</span>
+      <div class="top-audio">
+        <div class="sound-toggle muted" id="soundToggle" title="Звук вкл/выкл">
+          <span class="eq"><i></i><i></i><i></i><i></i></span>
+          <span id="soundLabel">Звук выкл</span>
+        </div>
+        <div class="player" id="player">
+          <div class="art">
+            <div class="eqbig"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="meta">
+            <span class="now" id="nowLabel">Радио</span>
+            <span class="ttl" id="trackTitle">LIBERTY FM</span>
+            <span class="art-name" id="trackArtist">Скоро в эфире</span>
+            <div class="track-bar"><i id="trackProgress"></i></div>
+          </div>
+          <div class="ctrls">
+            <div class="pbtn" id="prevBtn" title="Предыдущий">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+            </div>
+            <div class="pbtn play" id="playBtn" title="Плей/Пауза">
+              <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="pbtn" id="nextBtn" title="Следующий">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -303,29 +331,6 @@ body{
           <div class="info-item"><span class="k">Игроки</span><span class="v"><span id="iPlayers">—</span><span class="u" id="iMax"></span></span></div>
           <div class="info-item"><span class="k">Режим</span><span class="v" id="iGamemode">DarkRP</span></div>
           <div class="info-item"><span class="k">Пинг</span><span class="v"><span id="iPing">24</span> <span class="u">ms</span></span></div>
-        </div>
-      </div>
-
-      <div class="player" id="player">
-        <div class="art">
-          <div class="eqbig"><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-        <div class="meta">
-          <span class="now" id="nowLabel">Радио</span>
-          <span class="ttl" id="trackTitle">LIBERTY FM</span>
-          <span class="art-name" id="trackArtist">Скоро в эфире</span>
-          <div class="track-bar"><i id="trackProgress"></i></div>
-        </div>
-        <div class="ctrls">
-          <div class="pbtn" id="prevBtn" title="Предыдущий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-          </div>
-          <div class="pbtn play" id="playBtn" title="Плей/Пауза">
-            <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="pbtn" id="nextBtn" title="Следующий">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg>
-          </div>
         </div>
       </div>
     </div>
